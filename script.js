@@ -110,10 +110,6 @@ function render() {
   });
 }
 
-intervalId = setInterval(() => {
-  render();
-}, 300);
-
 startButton.addEventListener("click", () => {
   modal.style.display = "none";
   intervalId = setInterval(() => {
@@ -136,6 +132,10 @@ startButton.addEventListener("click", () => {
 restartButton.addEventListener("click", restartGame);
 
 function restartGame() {
+  clearInterval(intervalId);
+  clearInterval(timerIntervalId);
+  direction = "down";
+
   score = 0;
   time = `00-00`;
 
@@ -148,9 +148,6 @@ function restartGame() {
     blocks[`${segment.x}-${segment.y}`].classList.remove("fill");
   });
 
-  clearInterval(intervalId);
-  clearInterval(timerIntervalId);
-
   modal.style.display = "none";
   snake = [{ x: 1, y: 6 }];
   food = {
@@ -161,6 +158,21 @@ function restartGame() {
   intervalId = setInterval(() => {
     render();
   }, 300);
+
+
+  timerIntervalId = setInterval(() => {
+  let [min, sec] = time.split("-").map(Number);
+
+  if (sec == 59) {
+    min += 1;
+    sec = 0;
+  } else {
+    sec += 1;
+  }
+
+  time = `${min}-${sec}`;
+  timeElements.innerText = time;
+}, 1000);
 }
 
 addEventListener("keydown", (event) => {
