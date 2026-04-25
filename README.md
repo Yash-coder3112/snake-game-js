@@ -11,3 +11,6 @@ A simple Snake Game built using HTML, CSS, and JavaScript.
 
 ## Tech
 HTML, CSS, JavaScript
+
+## Imp
+Use arrow keys to control the snake.
